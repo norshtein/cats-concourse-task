@@ -9,7 +9,6 @@ image_resource:
 inputs:
 - name: cats-concourse-task
 - name: cf-acceptance-tests
-- name: integration-config
 outputs:
 - name: cats-trace-output
 
@@ -18,6 +17,9 @@ run:
 
 params:
   NODES: 12
-  CONFIG_FILE_PATH: integration_config.json
   SKIP_REGEXP:
   CAPTURE_LOGS: false
+  API_ENDPOINT:
+  APPS_DOMAIN:
+  ADMIN_USER:
+  ADMIN_PASSWORD:

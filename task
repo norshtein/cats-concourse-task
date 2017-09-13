@@ -3,15 +3,37 @@ set -xeu
 
 build_dir=${PWD}
 
-export CONFIG
-original_config="$PWD/integration-config/${CONFIG_FILE_PATH}"
-
-if ${CAPTURE_LOGS}; then
-  CONFIG=$(mktemp)
-  jq ".artifacts_directory=\"${build_dir}/cats-trace-output\"" ${original_config} > ${CONFIG}
-else
-  CONFIG=${original_config}
-fi
+cat > integration_config.json <<EOF
+{
+  "api": "${API_ENDPOINT}",
+  "apps_domain": "${APPS_DOMAIN}",
+  "admin_user": "${ADMIN_USER}",
+  "admin_password": "${ADMIN_PASSWORD}",
+  "skip_ssl_validation": true,
+  "use_http": true,
+  "include_apps": true,
+  "include_backend_compatibility": false,
+  "include_container_networking": false,
+  "include_detect": true,
+  "include_docker": false,
+  "include_internet_dependent": false,
+  "include_isolation_segments": false,
+  "include_persistent_app": false,
+  "include_private_docker_registry": false,
+  "include_privileged_container_support": false,
+  "include_route_services": false,
+  "include_routing": true,
+  "include_routing_isolation_segments": false,
+  "include_security_groups": true,
+  "include_services": true,
+  "include_ssh": false,
+  "include_sso": true,
+  "include_tasks": true,
+  "include_v3": false,
+  "include_zipkin": false
+}
+EOF
+export CONFIG=$PWD/integration_config.json
 
 CF_GOPATH=/go/src/github.com/cloudfoundry/
 
