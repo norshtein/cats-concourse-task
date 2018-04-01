@@ -29,7 +29,7 @@ cat > integration_config.json <<EOF
   "include_ssh": false,
   "include_sso": true,
   "include_tasks": true,
-  "include_v3": true,
+  "include_v3": false,
   "include_zipkin": false
 }
 EOF
